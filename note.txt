@@ -1,0 +1,9 @@
+Useful commands:
+* Generate the parsing table for libtasn1:
+  $ asn1Parser tpm2key.asn
+
+* Decode a given DER tpm2key file
+  $ asn1Decoding tpm2key.asn sample-key.der TPM2KEY.TPMKey
+
+* Generic ASN.1 parser
+  $ openssl asn1parse -inform der -in sample-key.der
