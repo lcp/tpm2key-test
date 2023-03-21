@@ -56,8 +56,8 @@ tpm2key_add_authpolicy (TSSPRIVKEY *tpm2key, char *name, int cmd, void *cmd_poli
 }
 
 TSSPRIVKEY *
-tpm2_basekey (const int parent, const void *pubkey, const int pubkey_size,
-	      const void *privkey, const int privkey_size)
+tpm2key_basekey (const int parent, const void *pubkey, const int pubkey_size,
+	         const void *privkey, const int privkey_size)
 {
 	TSSPRIVKEY *key;
 
@@ -103,14 +103,15 @@ main ()
 {
 	TSSPRIVKEY *key = NULL;
 
-	key = tpm2_basekey (test_parent, test_pubkey, sizeof(test_pubkey),
-			    test_privkey, sizeof(test_privkey));
+	key = tpm2key_basekey (test_parent, test_pubkey, sizeof(test_pubkey),
+			       test_privkey, sizeof(test_privkey));
 	if (key == NULL) {
 		printf ("NULL TSSPRIVKEY\n");
 		return -1;
 	}
 
-	tpm2_add_authpolicy (key, "test", fake_cc, fake_pol, sizeof (fake_pol));
+	tpm2key_add_authpolicy (key, "test1", fake_cc, fake_pol, sizeof (fake_pol));
+	tpm2key_add_authpolicy (key, "test2", fake_cc, fake_pol, sizeof (fake_pol));
 
 	write_tpm2key (key, outfile);
 
